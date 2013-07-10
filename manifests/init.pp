@@ -1,6 +1,10 @@
 # == Class: vagrant
 #
-# Installs Vagrant, which creates reproducible development environments.
+# Installs Vagrant, which manages reproducible development environments.
+#
+# Note: This does not use OS-packaged versions of Vagrant, but rather
+# the versions from vagrantup.com -- which are compatible with proprietary
+# plugins, like the VMware Fusion provider.
 #
 # === Parameters
 #
@@ -8,20 +12,28 @@
 #  The ensure value for the package resource, defaults to 'installed'.
 #
 # [*version*]
-#  The version of Vagrant to install, defaults to '1.2.2'.  If you are
-#  change this, you will have likely have to modify the `download_url`
+#  The version of Vagrant to install, defaults to '1.2.3'.  If you are
+#  change this, you will have likely have to modify the `base_url`
 #  parameter as well.
 #
-# [*download_url*]
+# [*base_url*]
 #  The base URL to retrieve the Vagrant package, defaults to a URL that
 #  is specific to the version on 'http://files.vagrantup.com/packages/'.
+#  This value should include a trailing slash ('/').
 #
 class vagrant(
-  $ensure       = 'installed',
-  $version      = '1.2.2',
-  $download_url = 'http://files.vagrantup.com/packages/7e400d00a3c5a0fdf2809c8b5001a035415a607b/',
+  $ensure   = 'installed',
+  $version  = '1.2.3',
+  $base_url = 'http://files.vagrantup.com/packages/95d308caaecd139b8f62e41e7add0ec3f8ae3bd1/',
 ) {
+
   # Setting up properties for the package.
+  if $::architecture == 'amd64' {
+    $arch = 'x86_64'
+  } else {
+    $arch = 'i686'
+  }
+
   case $::osfamily {
     darwin: {
       $package = "vagrant-${version}"
@@ -31,22 +43,12 @@ class vagrant(
     }
     debian: {
       $package = 'vagrant'
-      if $::architecture == 'amd64' {
-        $arch = 'x86_64'
-      } else {
-        $arch = 'i686'
-      }
       $package_basename = "vagrant_${version}_${arch}.deb"
       $provider = 'dpkg'
       $download = true
     }
     redhat: {
       $package = 'vagrant'
-      if $::architecture == 'amd64' {
-        $arch = 'x86_64'
-      } else {
-        $arch = 'i686'
-      }
       $package_basename = "vagrant_${version}_${arch}.rpm"
       $provider = 'yum'
       $download = true
@@ -57,7 +59,7 @@ class vagrant(
   }
 
   # Are we going to have to download the package prior to installation?
-  $package_url = "${download_url}${package_basename}"
+  $package_url = "${base_url}${package_basename}"
   if $download {
     # Place packages in `/var/cache/vagrant`.
     $cache = '/var/cache/vagrant'
