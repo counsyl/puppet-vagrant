@@ -1,5 +1,5 @@
 name    'counsyl-vagrant'
-version '0.9.0'
+version '0.9.1'
 source  'git://github.com/counsyl/puppet-vagrant.git'
 author  'Counsyl, Inc.'
 license 'Apache License, Version 2.0'
