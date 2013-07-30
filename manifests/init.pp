@@ -12,7 +12,7 @@
 #  The ensure value for the package resource, defaults to 'installed'.
 #
 # [*version*]
-#  The version of Vagrant to install, defaults to '1.2.5'.  If you are
+#  The version of Vagrant to install, defaults to '1.2.7'.  If you are
 #  change this, you will have likely have to modify the `base_url`
 #  parameter as well.
 #
@@ -23,8 +23,8 @@
 #
 class vagrant(
   $ensure   = 'installed',
-  $version  = '1.2.5',
-  $base_url = 'http://files.vagrantup.com/packages/ec2305a9a636ba8001902cecb835a00e71a83e45/',
+  $version  = '1.2.7',
+  $base_url = 'http://files.vagrantup.com/packages/7ec0ee1d00a916f80b109a298bab08e391945243/',
 ) {
 
   # Setting up properties for the package.
