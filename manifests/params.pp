@@ -44,7 +44,7 @@ class vagrant::params {
   # Download URLs, unfortunately Vagrant static download files are tied
   # to the git commit hash of the version tag.  This hash is necessary to
   # construct the $base_url parameter.
-  $base_url = 'http://files.vagrantup.com/packages/${version_hash}/'
+  $base_url = "http://files.vagrantup.com/packages/${version_hash}/"
   $package_url = "${base_url}${package_basename}"
 
   # If we're downloading the package, then it's source will be from the local
