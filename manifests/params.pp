@@ -1,6 +1,6 @@
 # == Class: vagrant::params
 #
-# Platform-independent parameters for Vagrant.
+# Platform-dependent parameters for Vagrant.
 #
 class vagrant::params {
   # Setting up properties for the package.
@@ -10,12 +10,13 @@ class vagrant::params {
     $arch = 'i686'
   }
 
-  # The version of Vagrant to install.
-  $version  = '1.2.7'
+  # The version of Vagrant to install, and the Git hash of the tagged version.
+  $version  = '1.3.1'
+  $version_hash = 'b12c7e8814171c1295ef82416ffe51e8a168a244'
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
-  
+
   case $::osfamily {
     darwin: {
       $package = "vagrant-${version}"
@@ -41,10 +42,14 @@ class vagrant::params {
   }
 
   # Download URLs, unfortunately Vagrant static download files are tied
-  # to a hash -- this is the $base_url parameter.
-  $base_url = 'http://files.vagrantup.com/packages/7ec0ee1d00a916f80b109a298bab08e391945243/'
+  # to the git commit hash of the version tag.  This hash is necessary to
+  # construct the $base_url parameter.
+  $base_url = 'http://files.vagrantup.com/packages/${version_hash}/'
   $package_url = "${base_url}${package_basename}"
 
+  # If we're downloading the package, then it's source will be from the local
+  # file system.  For those package providers that do the downloading (e.g.,
+  # OS X) then the source is just the package URL.
   if $download {
     $source = "${cache}/${package_basename}"
   } else {
