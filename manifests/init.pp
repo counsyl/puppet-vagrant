@@ -84,6 +84,6 @@ class vagrant(
   package { $package:
     ensure   => $ensure,
     provider => $provider,
-    source   => $source,
+    source   => $package_source,
   }
 }
