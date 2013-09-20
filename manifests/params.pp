@@ -11,8 +11,8 @@ class vagrant::params {
   }
 
   # The version of Vagrant to install, and the Git hash of the tagged version.
-  $version  = '1.3.1'
-  $version_hash = 'b12c7e8814171c1295ef82416ffe51e8a168a244'
+  $version  = '1.3.3'
+  $version_hash = 'db8e7a9c79b23264da129f55cf8569167fc22415'
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
@@ -46,13 +46,4 @@ class vagrant::params {
   # construct the $base_url parameter.
   $base_url = "http://files.vagrantup.com/packages/${version_hash}/"
   $package_url = "${base_url}${package_basename}"
-
-  # If we're downloading the package, then it's source will be from the local
-  # file system.  For those package providers that do the downloading (e.g.,
-  # OS X) then the source is just the package URL.
-  if $download {
-    $source = "${cache}/${package_basename}"
-  } else {
-    $source = $package_url
-  }
 }
