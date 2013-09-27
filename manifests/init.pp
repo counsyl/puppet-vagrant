@@ -74,7 +74,7 @@ class vagrant(
     exec { 'download-vagrant':
       command => "${sys::wget::path} ${package_url}",
       cwd     => $cache,
-      creates => $source,
+      creates => $package_source,
       require => File[$cache],
       before  => Package[$package],
     }
