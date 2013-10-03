@@ -60,8 +60,6 @@ class vagrant(
 
   # Are we going to have to download the package prior to installation?
   if $download and $ensure in ['installed', 'present'] {
-    include sys::wget
-
     # Place packages in `/var/cache/vagrant`.
     file { $cache:
       ensure => directory,
@@ -71,12 +69,11 @@ class vagrant(
     }
 
     # Download package before trying to install it.
-    exec { 'download-vagrant':
-      command => "${sys::wget::path} ${package_url}",
-      cwd     => $cache,
-      creates => $package_source,
-      require => File[$cache],
-      before  => Package[$package],
+    sys::fetch { 'download-vagrant':
+      source      => $package_url,
+      destination => $package_source,
+      require     => File[$cache],
+      before      => Package[$package],
     }
   }
 
