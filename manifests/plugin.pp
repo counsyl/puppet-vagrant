@@ -26,8 +26,8 @@
 #  Vagrant plugin, default is undefined.
 #
 # [*user*]
-#  The user parameter for the `exec` resource that installs the Vagrant
-#  plugin, default is undefined.
+#  The user to install the plugin for, by default this is undefined and
+#  will result in the plugin being installed for the root user.
 #
 define vagrant::plugin(
   $ensure      = 'installed',
@@ -36,7 +36,6 @@ define vagrant::plugin(
   $cwd         = undef,
   $environment = undef,
   $user        = undef,
-  $home        = undef,
 ) {
   # If the source is a gem file, then we have to tell `vagrant plugin install`
   # to use the file instead of $name.
@@ -69,42 +68,26 @@ define vagrant::plugin(
     $plugin_exists = "vagrant plugin list | grep '^${name} '"
   }
 
-  # Puppet exec resources do not include HOME environment variable, which is
-  # critical to the functionality of `vagrant plugin`.
-  include sys
+  # If the plugin is for a specific user, then their entire profile needs
+  # to be loaded -- thus a `su -` is required.
   if $user {
-    if $user == 'root' {
-      $default_home = $sys::root_home
-    } else {
-      $default_home = "/home/${user}"
-    }
+    $prefix = "su - ${user} "
   } else {
-    $default_home = $sys::root_home
+    $prefix = ''
   }
 
-  if $home {
-    $home_env = ["HOME=${home}"]
-  } else {
-    $home_env = ["HOME=${default_home}"]
-  }
-
-  if $environment {
-    $plugin_environment = flatten([$home_env, $environment])
-  } else {
-    $plugin_environment = $home_env
-  }
-
+  # Constructing the plugin commands depending on the ensure value.
   case $ensure {
     'installed', 'present': {
       $unless = $plugin_exists
       $onlyif = undef
       $plugin_options = join([$plugin_source, $plugin_version], " ")
-      $plugin_cmd = "vagrant plugin install ${plugin_name} ${plugin_options}"
+      $plugin_cmd = "${prefix}vagrant plugin install ${plugin_name} ${plugin_options}"
     }
     'uninstalled', 'absent': {
       $unless = undef
       $onlyif = $plugin_exists
-      $plugin_cmd = "vagrant plugin uninstall ${plugin_name}"
+      $plugin_cmd = "${prefix}vagrant plugin uninstall ${plugin_name}"
     }
     default: {
       fail("Invalid ensure value: ${ensure}.\n")
@@ -117,10 +100,10 @@ define vagrant::plugin(
     command     => $plugin_cmd,
     path        => ['/bin', '/usr/bin', '/usr/local/bin'],
     cwd         => $cwd,
-    user        => $user,
+    user        => 'root',
     onlyif      => $onlyif,
     unless      => $unless,
-    environment => $plugin_environment,
+    environment => $environment,
     require     => Class['vagrant'],
   }
 }
