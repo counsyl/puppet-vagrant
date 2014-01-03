@@ -12,7 +12,7 @@
 #  The ensure value for the package resource, defaults to 'installed'.
 #
 # [*version*]
-#  The version of Vagrant to install, defaults to '1.4.1'.  If you are
+#  The version of Vagrant to install, defaults to '1.4.2'.  If you are
 #  change this, you will have to modify the `source` parameter accordingly.
 #
 # [*cache*]
@@ -24,7 +24,7 @@
 #
 # [*package_basename*]
 #  The basename of the package; default is platform dependent, e.g.,
-#  `vagrant_1.4.1_x86_64.rpm`.
+#  `vagrant_1.4.2_x86_64.rpm`.
 #
 # [*package_url*]
 #  The URL to download the package from, must reference the same file

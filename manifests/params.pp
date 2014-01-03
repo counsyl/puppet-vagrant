@@ -10,8 +10,8 @@ class vagrant::params {
     $arch = 'i686'
   }
 
-  # The version of Vagrant to install, and the Git hash of the tagged version.
-  $version = '1.4.1'
+  # The version of Vagrant to install.
+  $version = '1.4.2'
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
