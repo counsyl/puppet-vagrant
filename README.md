@@ -10,6 +10,15 @@ To install vagrant, simply use the following in your manifests:
 include vagrant
 ```
 
+To install a Vagrant [plugin](http://docs.vagrantup.com/v2/plugins/index.html),
+use the `vagrant::plugin` defined type.  For example, to install the
+[`vagrant-windows`](https://github.com/WinRb/vagrant-windows) plugin, you'd
+use the following in your manifest:
+
+```puppet
+vagrant::plugin { 'vagrant-windows': }
+```
+
 License
 -------
 
