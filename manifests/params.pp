@@ -19,7 +19,7 @@ class vagrant::params {
   case $::osfamily {
     darwin: {
       $package = "vagrant-${version}"
-      $package_basename = "Vagrant-${version}.dmg"
+      $package_basename = "vagrant_${version}.dmg"
       $provider = 'pkgdmg'
       $download = false
     }
