@@ -11,7 +11,7 @@ class vagrant::params {
   }
 
   # The version of Vagrant to install.
-  $version = '1.4.3'
+  $version = '1.5.2'
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
