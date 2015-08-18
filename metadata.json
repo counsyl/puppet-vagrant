@@ -3,13 +3,13 @@
   "version": "0.9.18",
   "author": "Counsyl, Inc.",
   "summary": "Puppet module for installing and configuring Vagrant",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "source": "git://github.com/counsyl/puppet-vagrant.git",
   "project_page": "https://github.com/counsyl/puppet-vagrant",
   "issues_url": "https://github.com/counsyl/puppet-vagrant/issues",
   "description": "Puppet module for installing and configuring Vagrant",
   "dependencies": [
-    {"name":"counsyl/sys","version_requirement":">= 0.9.15"}
+    {"name":"counsyl/sys","version_requirement":">= 0.9.15 <2.0.0"}
   ],
   "operatingsystem_support": [
     { "operatingsystem": "CentOS" },
