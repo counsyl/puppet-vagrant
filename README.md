@@ -2,7 +2,7 @@ vagrant
 =======
 
 This Puppet module installs the Vagrant software package from the releases
-provided by the [Vagrant downloads](http://downloads.vagrantup.com/) page.
+provided by the [Vagrant downloads](https://www.vagrantup.com/downloads.html) page.
 
 To install vagrant, simply use the following in your manifests:
 
