@@ -17,26 +17,26 @@ class vagrant::params {
   $cache = '/var/cache/vagrant'
 
   case $::osfamily {
-    darwin: {
+    'Darwin': {
       $package = "vagrant-${version}"
       $package_basename = "vagrant_${version}.dmg"
       $provider = 'pkgdmg'
       $download = false
     }
-    debian: {
+    'Debian': {
       $package = 'vagrant'
       $package_basename = "vagrant_${version}_${arch}.deb"
       $provider = 'dpkg'
       $download = true
     }
-    redhat: {
+    'RedHat': {
       $package = 'vagrant'
       $package_basename = "vagrant_${version}_${arch}.rpm"
       $provider = 'rpm'
       $download = true
     }
     default: {
-      fail("Do not know how to install Vagrant on ${::osfamily}!\n")
+      fail("Do not know how to install Vagrant on ${::osfamily}!")
     }
   }
 
