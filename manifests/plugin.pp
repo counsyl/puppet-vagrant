@@ -81,7 +81,7 @@ define vagrant::plugin(
     'installed', 'present': {
       $unless = $plugin_exists
       $onlyif = undef
-      $plugin_options = join([$plugin_source, $plugin_version], " ")
+      $plugin_options = join([$plugin_source, $plugin_version], ' ')
       $plugin_cmd = "${prefix}vagrant plugin install ${plugin_name} ${plugin_options}"
     }
     'uninstalled', 'absent': {
