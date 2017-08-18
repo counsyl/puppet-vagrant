@@ -12,8 +12,7 @@
 #  The ensure value for the package resource, defaults to 'installed'.
 #
 # [*version*]
-#  The version of Vagrant to install, defaults to '1.7.4'.  If you are
-#  change this, you will have to modify the `source` parameter accordingly.
+#  The version of Vagrant to install, defaults to '1.9.7'.
 #
 # [*cache*]
 #  On Linux systems, location to store the downloaded Vagrant package,
