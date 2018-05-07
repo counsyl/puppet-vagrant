@@ -48,7 +48,7 @@ class vagrant(
   $package_basename = $vagrant::params::package_basename,
   $package_url      = $vagrant::params::package_url,
   $provider         = $vagrant::params::provider,
-  $source           = $vagrant::params::source,
+  $source           = undef,
 ) inherits vagrant::params {
 
   # If we're downloading the package, then it's source will be from the local
