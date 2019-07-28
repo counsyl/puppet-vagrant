@@ -1,3 +1,10 @@
+## 0.9.21 (07/28/2019)
+
+IMPROVEMENTS:
+
+* Upgrade to Vagrant 2.2.5 (Jakov Sosic).
+* Use newer `lookup` function (Jakov Sosic).
+
 ## 0.9.20 (08/18/2017)
 
 IMPROVEMENTS:
