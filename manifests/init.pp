@@ -12,7 +12,7 @@
 #  The ensure value for the package resource, defaults to 'installed'.
 #
 # [*version*]
-#  The version of Vagrant to install, defaults to '1.9.7'.
+#  The version of Vagrant to install, defaults to '2.2.5'.
 #
 # [*cache*]
 #  On Linux systems, location to store the downloaded Vagrant package,

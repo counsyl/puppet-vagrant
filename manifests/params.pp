@@ -4,19 +4,19 @@
 #
 class vagrant::params {
   # Setting up properties for the package.
-  if ($::architecture == 'amd64' or $::architecture == 'x86_64') {
+  if ($facts['os']['architecture'] == 'amd64' or $facts['os']['architecture'] == 'x86_64') {
     $arch = 'x86_64'
   } else {
     $arch = 'i686'
   }
 
   # The version of Vagrant to install.
-  $version = hiera('vagrant::version', '1.7.4')
+  $version = lookup('vagrant::version', { default_value => '2.2.5' })
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Darwin': {
       $package = "vagrant-${version}"
       if versioncmp($version, '1.9.2') > 0 {
@@ -42,12 +42,14 @@ class vagrant::params {
       $download = true
     }
     default: {
-      fail("Do not know how to install Vagrant on ${::osfamily}!")
+      fail("Do not know how to install Vagrant on ${facts['os']['family']}!")
     }
   }
 
   # The download URL for Vagrant.
-  $base_url = hiera(
-      'vagrant::package_url', 'https://releases.hashicorp.com/vagrant/')
+  $base_url = lookup(
+    'vagrant::package_url',
+    { default_value => 'https://releases.hashicorp.com/vagrant/' }
+  )
   $package_url = "${base_url}${version}/${package_basename}"
 }
