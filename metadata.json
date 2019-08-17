@@ -1,6 +1,6 @@
 {
   "name": "counsyl-vagrant",
-  "version": "0.9.20",
+  "version": "0.9.21",
   "author": "Counsyl, Inc.",
   "summary": "Puppet module for installing and configuring Vagrant",
   "license": "Apache-2.0",
