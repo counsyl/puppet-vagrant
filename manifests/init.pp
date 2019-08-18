@@ -62,6 +62,15 @@ class vagrant(
     $package_source = $package_url
   }
 
+  if $ensure in ['installed', 'present'] {
+    $package_ensure = $version ? {
+      ''      => 'present',
+      default => $version,
+    }
+  } else {
+    $package_ensure = absent
+  }
+
   # Are we going to have to download the package prior to installation?
   if $download and $ensure in ['installed', 'present'] {
     # Place packages in `/var/cache/vagrant`.
@@ -83,7 +92,7 @@ class vagrant(
 
   # The Vagrant package resource.
   package { $package:
-    ensure   => $ensure,
+    ensure   => $package_ensure,
     provider => $provider,
     source   => $package_source,
   }
