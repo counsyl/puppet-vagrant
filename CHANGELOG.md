@@ -1,3 +1,9 @@
+## 0.9.22 (11/11/2019)
+
+IMPROVEMENTS:
+
+* Upgrade vagrant if different than configured version (Jakov Sosic).
+
 ## 0.9.21 (07/28/2019)
 
 IMPROVEMENTS:
