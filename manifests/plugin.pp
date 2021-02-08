@@ -39,7 +39,7 @@ define vagrant::plugin(
 ) {
   # If the source is a gem file, then we have to tell `vagrant plugin install`
   # to use the file instead of $name.
-  if $source =~ /-(\d+\..+)\.gem$/ {
+  if $source and $source =~ /-(\d+\..+)\.gem$/ {
     $gem = true
     $plugin_name = $source
   } else {

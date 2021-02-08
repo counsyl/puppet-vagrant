@@ -62,11 +62,13 @@ class vagrant(
     $package_source = $package_url
   }
 
-  if $ensure in ['installed', 'present'] {
+  if !$download and $ensure in ['installed', 'present'] {
     $package_ensure = $version ? {
       ''      => 'present',
       default => $version,
     }
+  } elsif $download and $ensure in ['installed', 'present'] {
+    $package_ensure = $ensure
   } else {
     $package_ensure = absent
   }
