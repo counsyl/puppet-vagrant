@@ -11,7 +11,7 @@ class vagrant::params {
   }
 
   # The version of Vagrant to install.
-  $version = lookup('vagrant::version', { default_value => '2.2.5' })
+  $version = lookup('vagrant::version', { default_value => '2.3.2-1' })
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
