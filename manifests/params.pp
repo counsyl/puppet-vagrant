@@ -11,10 +11,12 @@ class vagrant::params {
   }
 
   # The version of Vagrant to install.
-  $version = lookup('vagrant::version', { default_value => '2.2.5' })
+  $version = lookup('vagrant::version', { default_value => '2.3.2-1' })
 
   # Where to cache Vagrant package downloads, if necessary.
   $cache = '/var/cache/vagrant'
+
+  $version_without_release = split($version,'-')[0]
 
   case $facts['os']['family'] {
     'Darwin': {
@@ -37,7 +39,11 @@ class vagrant::params {
     }
     'RedHat': {
       $package = 'vagrant'
-      $package_basename = "vagrant_${version}_${arch}.rpm"
+      if versioncmp($version_without_release, '2.3') >= 0 {
+        $package_basename = "vagrant-${version}.${arch}.rpm"
+      } else {
+        $package_basename = "vagrant_${version}_${arch}.rpm"
+      }
       $provider = 'rpm'
       $download = true
     }
@@ -51,5 +57,5 @@ class vagrant::params {
     'vagrant::package_url',
     { default_value => 'https://releases.hashicorp.com/vagrant/' }
   )
-  $package_url = "${base_url}${version}/${package_basename}"
+  $package_url = "${base_url}${version_without_release}/${package_basename}"
 }
