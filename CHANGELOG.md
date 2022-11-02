@@ -1,3 +1,9 @@
+## 0.9.23 (11/02/2022)
+
+IMPROVEMENTS:
+
+* Support new Vagrant package versioning (Jakov Sosic).
+
 ## 0.9.22 (11/11/2019)
 
 IMPROVEMENTS:
